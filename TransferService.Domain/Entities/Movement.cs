@@ -16,7 +16,7 @@ namespace TransferService.Domain.Entities
         public DateTime CreatedAt { get; private set; }
         public Guid TransferId { get; private set; }
 
-        public Movement()
+        private Movement()
         {
         }
 

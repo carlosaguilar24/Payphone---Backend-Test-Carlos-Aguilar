@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TransferService.Domain.Exceptions
+{
+    public class WalletNotFoundException : Exception
+    {
+        public WalletNotFoundException(int walletId)
+      : base($"Wallet Not Found: Id {walletId}.")
+        {
+        }
+    }
+}
