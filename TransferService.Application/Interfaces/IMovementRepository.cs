@@ -11,7 +11,7 @@ namespace TransferService.Application.Interfaces
     {
         Task AddMovementAsync(Movement movement);
         Task<IReadOnlyList<Movement>> GetMovementByWalletIdAsync(int walletId);
-        Task<IReadOnlyList<Movement>> GetMovementByIdTransactionAsync(Guid transactionId);
+        Task<IReadOnlyList<Movement>> GetMovementByIdTransactionAsync(Guid transferId);
 
     }
 }
