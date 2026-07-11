@@ -18,4 +18,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TransferService.Application\TransferService.Application.csproj" />
+    <ProjectReference Include="..\TransferService.Domain\TransferService.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
