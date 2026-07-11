@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Storage;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,20 +11,19 @@ namespace TransferService.Infraestructure.Persistence
     public class UnitOfWork : IUnitOfWork
     {
         private readonly TransferDbContext _context;
-
-        public Task BeginTransactionAsync()
-        {
-            return null;
-        }
+        private IDbContextTransaction? _transaction;
 
 
-        public Task CommitAsync()
+        public UnitOfWork(TransferDbContext context)
         {
-            return null;
+            _context = context;
         }
-        public Task RollbackAsync()
-        {
-            return null;
-        }
+
+        public async Task BeginTransactionAsync() =>
+              _transaction = await _context.Database.BeginTransactionAsync();
+        public async Task CommitAsync() =>
+               await _transaction!.CommitAsync();
+        public async Task RollbackAsync() =>
+                    await _transaction!.RollbackAsync();
     }
 }

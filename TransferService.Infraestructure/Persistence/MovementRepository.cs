@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,19 +13,27 @@ namespace TransferService.Infraestructure.Persistence
     {
         private readonly TransferDbContext _context;
 
-        public Task AddMovementAsync(Movement movement)
+        public MovementRepository(TransferDbContext context)
         {
-            return null;
+            _context = context;
         }
 
-        public Task<IReadOnlyList<Movement>> GetMovementByWalletIdAsync(int walletId)
+        public async Task AddMovementAsync(Movement movement)
         {
-            return null;
+            _context.Add(movement);
+            await _context.SaveChangesAsync();  
         }
 
-        public Task<IReadOnlyList<Movement>> GetMovementByIdTransactionAsync(Guid transactionId)
-        {
-            return null;
-        }
+        public async Task<IReadOnlyList<Movement>> GetMovementByWalletIdAsync(int walletId) =>
+            await _context.Movements
+                .Where(m => m.WalletId == walletId)
+                .OrderByDescending(m => m.CreatedAt)
+                .ToListAsync();
+
+        public async Task<IReadOnlyList<Movement>> GetMovementByIdTransactionAsync(Guid transferId) =>
+              await _context.Movements
+               .Where(m => m.TransferId == transferId)
+               .OrderByDescending(m => m.CreatedAt)
+               .ToListAsync();
     }
 }

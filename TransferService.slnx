@@ -1,1 +1,9 @@
-<Solution />
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="TransferService.Api/TransferService.Api.csproj" />
+    <Project Path="TransferService.Application/TransferService.Application.csproj" />
+    <Project Path="TransferService.Domain/TransferService.Domain.csproj" />
+    <Project Path="TransferService.Infraestructure/TransferService.Infraestructure.csproj" />
+  </Folder>
+  <Folder Name="/test/" />
+</Solution>

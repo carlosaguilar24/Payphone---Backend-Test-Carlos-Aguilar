@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,18 +13,26 @@ namespace TransferService.Infraestructure.Persistence
     {
         private readonly TransferDbContext _context;
 
-        public Task<Wallet?> GetWalletByIdAsync(int id)
+        public WalletRepository(TransferDbContext context)
         {
-            return null;
+            _context = context;
         }
 
-        public Task CreateWalletAsync(Wallet wallet)
+        public Task<Wallet?> GetWalletByIdAsync(int id) =>
+            _context.Wallets.FirstOrDefaultAsync(w => w.Id == id);
+
+        public async Task CreateWalletAsync(Wallet wallet)
         {
-            return null;
+            _context.Add(wallet);
+            await _context.SaveChangesAsync();
+
         }
-        public Task UpdateWalletAsync(Wallet wallet)
+
+        public async Task UpdateWalletAsync(Wallet wallet)
         {
-            return null;
+            wallet.UpdatedAt  = DateTime.UtcNow;
+            _context.Wallets.Update(wallet);
+            await _context.SaveChangesAsync();
         }
     }
 }
