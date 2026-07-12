@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using TransferService.Application.Interfaces;
+using TransferService.Application.Transfer;
 using TransferService.Application.Wallets;
 using TransferService.Domain.Entities;
 
@@ -13,10 +14,12 @@ namespace TransferService.Api.Controllers
     public class WalletsController : ControllerBase
     {
         private readonly IWalletService _walletService;
+        private readonly ITransferService _transferService;
 
-        public WalletsController(IWalletService walletService)
+        public WalletsController(IWalletService walletService, ITransferService transferService)
         {
             _walletService = walletService;
+            _transferService = transferService;
         }
 
         [HttpPost("wallet")]
@@ -44,5 +47,17 @@ namespace TransferService.Api.Controllers
             return Ok(wallet);
         }
 
+        [HttpPost("transfer")]
+        public async Task<IActionResult> ExecuteTransfer(TransferRequest request, CancellationToken ct)
+        {
+            var result = await _transferService.ExecuteTransferAsync(request, ct);
+            return Ok(result);
+        }
+
+        [HttpGet("movements/{id}")]
+        public async Task<IActionResult> GetMovements(int id, CancellationToken ct)
+        {
+            return Ok();
+        }
     }
 }
