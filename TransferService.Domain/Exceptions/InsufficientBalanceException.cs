@@ -9,7 +9,7 @@ namespace TransferService.Domain.Exceptions
     public class InsufficientBalanceException : Exception
     {
         public InsufficientBalanceException(int walletId, decimal balance, decimal requested)
-        : base($"La billetera {walletId} tiene saldo insuficiente. Disponible: {balance}, solicitado: {requested}")
+        : base($"The wallet {walletId} has insuficent balance. Available: {balance}, requested: {requested}")
         {
         }
     }

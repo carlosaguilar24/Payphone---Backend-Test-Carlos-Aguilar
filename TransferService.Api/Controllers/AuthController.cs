@@ -22,7 +22,7 @@ namespace TransferService.Api.Controllers
         public IActionResult Login([FromBody] LoginRequest request)
         {
             if (request.Username != _configuration["Jwt:UserExample"] || request.Password != _configuration["Jwt:PasswordExample"])
-                return Unauthorized(new { error = "Credencuales inválidas" });
+                return Unauthorized(new { error = "Invalid credentials" });
 
             var token = GenerateJwtToken(request.Username);
             return Ok(new { token });

@@ -5,5 +5,9 @@
     <Project Path="TransferService.Domain/TransferService.Domain.csproj" />
     <Project Path="TransferService.Infraestructure/TransferService.Infraestructure.csproj" />
   </Folder>
-  <Folder Name="/test/" />
+  <Folder Name="/test/">
+    <Project Path="test/TransferService.Application.Unittest/TransferService.Application.Unittest.csproj" />
+    <Project Path="test/TransferService.Domain.Unittest/TransferService.Domain.Unittest.csproj" />
+    <Project Path="test/TransferService.Integrationtest/TransferService.Integrationtest.csproj" />
+  </Folder>
 </Solution>
