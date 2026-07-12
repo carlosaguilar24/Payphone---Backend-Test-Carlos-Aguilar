@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +23,7 @@ namespace TransferService.Api.Controllers
             _transferService = transferService;
         }
 
+        [Authorize]
         [HttpPost("wallet")]
         public async Task<IActionResult> CreateWallet(
         [FromBody] CreateWalletRequest request,
@@ -40,6 +42,7 @@ namespace TransferService.Api.Controllers
         }
 
 
+        [Authorize]
         [HttpGet("wallet/{id}")]
         public async Task<IActionResult> GetWallet(int id, CancellationToken ct)
         {
@@ -47,6 +50,7 @@ namespace TransferService.Api.Controllers
             return Ok(wallet);
         }
 
+        [Authorize]
         [HttpPost("transfer")]
         public async Task<IActionResult> ExecuteTransfer(TransferRequest request, CancellationToken ct)
         {
