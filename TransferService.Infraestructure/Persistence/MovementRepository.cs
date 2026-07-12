@@ -20,11 +20,10 @@ namespace TransferService.Infraestructure.Persistence
 
         public async Task AddMovementAsync(Movement movement)
         {
-            _context.Add(movement);
-            await _context.SaveChangesAsync();  
+            await _context.AddAsync(movement);
         }
 
-        public async Task<IReadOnlyList<Movement>> GetMovementByWalletIdAsync(int walletId) =>
+        public async Task<IReadOnlyList<Movement>> GetMovementsByWalletIdAsync(int walletId) =>
             await _context.Movements
                 .Where(m => m.WalletId == walletId)
                 .OrderByDescending(m => m.CreatedAt)

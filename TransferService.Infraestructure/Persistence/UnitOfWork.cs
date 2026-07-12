@@ -11,7 +11,6 @@ namespace TransferService.Infraestructure.Persistence
     public class UnitOfWork : IUnitOfWork
     {
         private readonly TransferDbContext _context;
-        private IDbContextTransaction? _transaction;
 
 
         public UnitOfWork(TransferDbContext context)
@@ -19,11 +18,9 @@ namespace TransferService.Infraestructure.Persistence
             _context = context;
         }
 
-        public async Task BeginTransactionAsync() =>
-              _transaction = await _context.Database.BeginTransactionAsync();
-        public async Task CommitAsync() =>
-               await _transaction!.CommitAsync();
-        public async Task RollbackAsync() =>
-                    await _transaction!.RollbackAsync();
+        public Task<int> SaveChangesAsync(CancellationToken ct = default)
+        {
+            return _context.SaveChangesAsync(ct);
+        }
     }
 }

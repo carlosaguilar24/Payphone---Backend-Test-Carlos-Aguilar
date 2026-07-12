@@ -23,16 +23,14 @@ namespace TransferService.Infraestructure.Persistence
 
         public async Task CreateWalletAsync(Wallet wallet)
         {
-            _context.Add(wallet);
-            await _context.SaveChangesAsync();
+            await _context.AddAsync(wallet);
 
         }
 
-        public async Task UpdateWalletAsync(Wallet wallet)
+        public Task UpdateWalletAsync(Wallet wallet)
         {
-            wallet.UpdatedAt  = DateTime.UtcNow;
             _context.Wallets.Update(wallet);
-            await _context.SaveChangesAsync();
+            return Task.CompletedTask;
         }
     }
 }
