@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace TransferService.Application.Wallets
 {
-    public class CreateWalletRequest
+    public class WalletResponse
     {
+        public int Id { get; set; }
         public string DocumentId { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
-        public decimal InitialBalance { get; set; }
-
+        public decimal Balance { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 }

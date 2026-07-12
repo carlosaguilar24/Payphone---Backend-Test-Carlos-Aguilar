@@ -10,8 +10,9 @@ namespace TransferService.Application.Interfaces
 {
     public interface IWalletService
     {
-        Task<Wallet> CreateWalletAsync(CreateWalletRequest request, CancellationToken ct = default);
-        Task<Wallet?> GetWalletByIdAsync(int id, CancellationToken ct = default);
+        Task<WalletResponse> CreateWalletAsync(CreateWalletRequest request, CancellationToken ct = default);
+        Task<WalletResponse> GetWalletByIdAsync(int id, CancellationToken ct = default);
+        Task<IReadOnlyCollection<MovementResponse>> GetMovementsByWallet(int id, CancellationToken ct = default);    
 
     }
 }

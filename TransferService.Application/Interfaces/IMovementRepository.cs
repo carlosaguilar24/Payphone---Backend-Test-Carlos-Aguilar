@@ -10,7 +10,7 @@ namespace TransferService.Application.Interfaces
     public interface IMovementRepository
     {
         Task AddMovementAsync(Movement movement);
-        Task<IReadOnlyList<Movement>> GetMovementByWalletIdAsync(int walletId);
+        Task<IReadOnlyList<Movement>> GetMovementsByWalletIdAsync(int walletId);
         Task<IReadOnlyList<Movement>> GetMovementByIdTransactionAsync(Guid transferId);
 
     }

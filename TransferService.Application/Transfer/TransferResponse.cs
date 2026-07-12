@@ -8,16 +8,10 @@ namespace TransferService.Application.Transfer
 {
     public class TransferResponse
     {
-        public bool Success { get; set; }   
-        public string? Message { get; set; }
-
-        private TransferResponse(bool  success, string? message)
-        {
-            Success = success;
-            Message = message;
-        }
-
-        public static TransferResponse Ok() => new(true, null);
-        public static TransferResponse Error(string message) => new(false, message);    
+        public Guid TransferId { get; set; }
+        public int OriginWalletId { get; set; }
+        public int DestinationWalletId { get; set; }
+        public decimal Amount { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }

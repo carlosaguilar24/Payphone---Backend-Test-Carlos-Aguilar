@@ -8,6 +8,7 @@ using TransferService.Application.Interfaces;
 using TransferService.Application.Wallets;
 using TransferService.Application.Wallets.Validators;
 using FluentValidation;
+using TransferService.Application.Transfer;
 
 namespace TransferService.Application
 {
@@ -16,6 +17,7 @@ namespace TransferService.Application
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services.AddScoped<IWalletService, WalletService>();
+            services.AddScoped<ITransferService, WalletTransferService>();
             services.AddValidatorsFromAssemblyContaining<CreateWalletRequestValidator>();
             return services;
         }
