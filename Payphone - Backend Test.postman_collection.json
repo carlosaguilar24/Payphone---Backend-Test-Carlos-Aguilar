@@ -1,0 +1,176 @@
+{
+  "info": {
+    "_postman_id": "cc48d019-f818-4118-b9ba-d9d319babc16",
+    "name": "Payphone - Backend Test",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "15753296"
+  },
+  "item": [
+    {
+      "name": "GetWallet",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicGF5cGhvbmUiLCJqdGkiOiIzNWRhMTRmNi05ZmIzLTQ2NmYtODViYy0wZjZlYTk2NjM4NjAiLCJleHAiOjE3ODM4Mzg3MDMsImlzcyI6IlRyYW5zZmVyU2VydmljZS5BcGkiLCJhdWQiOiJUcmFuc2ZlclNlcnZpY2UuQ2xpZW50cyJ9.QwKyeSWkEkGmiGawQjjy0LHcFmhECtd_S02gC2JPUmk",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:7289/api/v1/wallet/1",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "7289",
+          "path": [
+            "api",
+            "v1",
+            "wallet",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Wallet",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicGF5cGhvbmUiLCJqdGkiOiIzNWRhMTRmNi05ZmIzLTQ2NmYtODViYy0wZjZlYTk2NjM4NjAiLCJleHAiOjE3ODM4Mzg3MDMsImlzcyI6IlRyYW5zZmVyU2VydmljZS5BcGkiLCJhdWQiOiJUcmFuc2ZlclNlcnZpY2UuQ2xpZW50cyJ9.QwKyeSWkEkGmiGawQjjy0LHcFmhECtd_S02gC2JPUmk",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"documentId\": \"0101199514445\",\r\n  \"name\": \"Junior Moreno\",\r\n  \"initialBalance\": 1200\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://localhost:7289/api/v1/wallet",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "7289",
+          "path": [
+            "api",
+            "v1",
+            "wallet"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Transfer",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicGF5cGhvbmUiLCJqdGkiOiI4YzliZmQ3MS1hY2I4LTRmYjUtYmM1NS0wMWQ1Yzc1ZTEwNmEiLCJleHAiOjE3ODM4MzcxODQsImlzcyI6IlRyYW5zZmVyU2VydmljZS5BcGkiLCJhdWQiOiJUcmFuc2ZlclNlcnZpY2UuQ2xpZW50cyJ9.vAfHMRmoPlhTOa8__e0h6K3sozgaV8tf1pf9P55shU8",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"fromWalletId\": 1,\r\n  \"toWalletId\": 2,\r\n  \"amount\": 100,\r\n  \"transferId\": \"afc39955-34e8-4f93-8759-7aad12dc02d9\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://localhost:7289/api/v1/transfer",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "7289",
+          "path": [
+            "api",
+            "v1",
+            "transfer"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Movements",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:7289/api/v1/wallet/1/movements",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "7289",
+          "path": [
+            "api",
+            "v1",
+            "wallet",
+            "1",
+            "movements"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"username\": \"payphone\",\r\n  \"password\": \"payphoepassword\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://localhost:7289/api/v1/auth/login",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "7289",
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
