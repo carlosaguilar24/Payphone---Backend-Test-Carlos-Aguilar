@@ -69,6 +69,10 @@ namespace TransferService.Api
             app.MapControllers();
 
             app.Run();
+
         }
     }
 }
+
+public partial class Program { }
+

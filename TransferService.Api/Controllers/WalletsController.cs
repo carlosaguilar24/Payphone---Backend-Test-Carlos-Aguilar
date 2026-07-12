@@ -55,10 +55,10 @@ namespace TransferService.Api.Controllers
         public async Task<IActionResult> ExecuteTransfer(TransferRequest request, CancellationToken ct)
         {
             var result = await _transferService.ExecuteTransferAsync(request, ct);
-            return Ok(result);
+            return Created($"api/v1/wallet/{result.OriginWalletId}/movements", result);
         }
 
-        [HttpGet("movements/{id}")]
+        [HttpGet("wallet/{id}/movements")]
         public async Task<IActionResult> GetMovements(int id, CancellationToken ct)
         {
             var movements = await _walletService.GetMovementsByWallet(id, ct);
