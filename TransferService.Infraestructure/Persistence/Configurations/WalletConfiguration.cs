@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TransferService.Domain.Entities;
+using TransferService.Domain.ValueObjects;
 
 namespace TransferService.Infraestructure.Persistence.Configurations
 {
@@ -30,6 +31,10 @@ namespace TransferService.Infraestructure.Persistence.Configurations
                 .IsRequired();
 
             builder.Property(w => w.Balance)
+                .HasConversion(
+                 money => money.Amount,
+                 value => Money.Create(value))
+                .HasColumnName("Balance")
                 .HasColumnType("decimal(19,4)")
                 .IsRequired();
 

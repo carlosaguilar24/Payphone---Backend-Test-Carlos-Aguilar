@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TransferService.Domain.Exceptions;
+using TransferService.Domain.ValueObjects;
 
 namespace TransferService.Domain.Entities
 {
@@ -12,7 +13,7 @@ namespace TransferService.Domain.Entities
         public int Id { get; set; }
         public string DocumentId { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
-        public decimal Balance { get; set; }
+        public Money Balance { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
 
@@ -20,19 +21,17 @@ namespace TransferService.Domain.Entities
 
         public static Wallet Create(string documentId, string name, decimal initialBalance = 0)
         {
-            if (string.IsNullOrWhiteSpace(documentId))
-                throw new ArgumentException("El documento de identidad es obligatorio.");
+            ValidateDocumentId(documentId);
+
             if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentException("El nombre es obligatorio.");
-            if (initialBalance < 0)
-                throw new InvalidTransferException("El saldo inicial no puede ser negativo.");
+                throw new InvalidTransferException("Name is mandatory.");
 
             var now = DateTime.UtcNow;
             return new Wallet
             {
                 DocumentId = documentId,
                 Name = name,
-                Balance = initialBalance,
+                Balance = Money.Create(initialBalance),
                 CreatedAt = now,
                 UpdatedAt = now
             };
@@ -40,22 +39,34 @@ namespace TransferService.Domain.Entities
 
         public void Debit(decimal amount)
         {
-            if (amount <= 0)
-                throw new InvalidTransferException("El monto a debitar debe ser mayor a cero.");
-            if (Balance < amount)
-                throw new InsufficientBalanceException(Id, Balance, amount);
+            var money = Money.Create(amount);
 
-            Balance -= amount;
+            if (money.Amount <= 0)
+                throw new InvalidTransferException("The transfer amount must be greater than zero.");
+            if (Balance.IsLessThan(money))
+            throw new InsufficientBalanceException(Id, Balance.Amount, money.Amount);
+
+            Balance = Balance.Subtract(money);
             UpdatedAt = DateTime.UtcNow;
         }
 
         public void Credit(decimal amount)
         {
-            if (amount <= 0)
-                throw new InvalidTransferException("El monto a acreditar debe ser mayor a cero.");
+            var money = Money.Create(amount);
+            if (money.Amount <= 0)
+                throw new InvalidTransferException("The transfer amount must be greater than zero.");
 
-            Balance += amount;
+        Balance = Balance.Add(money);
             UpdatedAt = DateTime.UtcNow;
+        }
+
+        private static void ValidateDocumentId(string documentId)
+        {
+            if (string.IsNullOrWhiteSpace(documentId))
+                throw new InvalidTransferException("Document ID is mandatory.");
+
+            if (!System.Text.RegularExpressions.Regex.IsMatch(documentId, @"^\d{13}$"))
+                throw new InvalidTransferException("Document ID must have 13 characters.");
         }
 
     }

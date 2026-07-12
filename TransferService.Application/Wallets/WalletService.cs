@@ -54,7 +54,7 @@ namespace TransferService.Application.Wallets
             Id = wallet.Id,
             DocumentId = wallet.DocumentId,
             Name = wallet.Name,
-            Balance = wallet.Balance,
+            Balance = wallet.Balance.Amount,
             CreatedAt = wallet.CreatedAt,
             UpdatedAt = wallet.UpdatedAt
         };
