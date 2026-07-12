@@ -13,10 +13,19 @@ namespace TransferService.Integrationtest
         {
             builder.ConfigureAppConfiguration((context, config) =>
             {
+                var settings = config.Build();
+
+                var conn = settings.GetConnectionString("PayphoneConnection");
+
+                conn = conn.Replace(
+                    "Database=PAYPHONEWALLETS;",
+                    "Database=PAYPHONEWALLETS_TEST;");
+
+
                 config.AddInMemoryCollection(new Dictionary<string, string?>
                 {
-                    ["ConnectionStrings:PayphoneConnection"] =
-                        "Server=(localdb)\\MSSQLLocalDB;Database=PAYPHONEWALLETS_TEST;Trusted_Connection=True;TrustServerCertificate=True;"
+                    ["ConnectionStrings:PayphoneConnection"] = conn
+
                 });
             });
         }
