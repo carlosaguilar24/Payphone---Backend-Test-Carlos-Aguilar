@@ -9,10 +9,10 @@ namespace TransferService.Application.Wallets
 {
     public class MovementResponse
     {
-        public int WalletId { get; private set; }
-        public decimal Amount { get; private set; }
-        public MovementType Type { get; private set; }
-        public DateTime CreatedAt { get; private set; }
-        public Guid TransferId { get; private set; }
+        public int WalletId { get; set; }
+        public decimal Amount { get;  set; }
+        public string Type { get;  set; }
+        public DateTime CreatedAt { get;  set; }
+        public Guid TransferId { get;  set; }
     }
 }

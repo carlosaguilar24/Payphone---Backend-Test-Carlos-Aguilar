@@ -12,12 +12,14 @@ namespace TransferService.Application.Wallets
     public class WalletService : IWalletService
     {
         private readonly IWalletRepository _walletRepository;
+        private readonly IMovementRepository _movementRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public WalletService(IWalletRepository walletRepository, IUnitOfWork unitOfWork)
+        public WalletService(IWalletRepository walletRepository, IUnitOfWork unitOfWork, IMovementRepository movementRepository)
         {
             _walletRepository = walletRepository;
             _unitOfWork = unitOfWork;
+            _movementRepository = movementRepository;
         }
         public async Task<WalletResponse> CreateWalletAsync(CreateWalletRequest request, CancellationToken ct = default)
         {
@@ -37,9 +39,14 @@ namespace TransferService.Application.Wallets
 
         }
 
-        public async Task<IReadOnlyCollection<MovementResponse>> GetMovementsByWallet(int id, CancellationToken ct = default)
+        public async Task<IReadOnlyCollection<MovementResponse>> GetMovementsByWallet(int walletId, CancellationToken ct = default)
         {
-            return null;    
+            var wallet = await _walletRepository.GetWalletByIdAsync(walletId)
+                    ?? throw new WalletNotFoundException(walletId);
+
+            var movements = await _movementRepository.GetMovementsByWalletIdAsync(walletId);
+
+            return movements.Select(MapToResponseMovements).ToList();
         }
 
         private static WalletResponse MapToResponseWallet(Wallet wallet) => new()
@@ -50,6 +57,15 @@ namespace TransferService.Application.Wallets
             Balance = wallet.Balance,
             CreatedAt = wallet.CreatedAt,
             UpdatedAt = wallet.UpdatedAt
+        };
+
+        private static MovementResponse MapToResponseMovements(Movement movement) => new()
+        {
+            WalletId = movement.WalletId,
+            Amount = movement.Amount,
+            Type = movement.Type.ToString(),
+            CreatedAt = movement.CreatedAt,
+            TransferId = movement.TransferId
         };
 
     }

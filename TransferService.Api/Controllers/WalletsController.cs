@@ -57,7 +57,8 @@ namespace TransferService.Api.Controllers
         [HttpGet("movements/{id}")]
         public async Task<IActionResult> GetMovements(int id, CancellationToken ct)
         {
-            return Ok();
+            var movements = await _walletService.GetMovementsByWallet(id, ct);
+            return Ok(new {movements});
         }
     }
 }
