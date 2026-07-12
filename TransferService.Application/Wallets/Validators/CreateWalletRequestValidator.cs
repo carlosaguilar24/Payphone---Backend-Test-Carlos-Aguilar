@@ -20,7 +20,7 @@ namespace TransferService.Application.Wallets.Validators
                 .MaximumLength(120).WithMessage("Name cannot exceed 20 characters.");
 
             RuleFor(x => x.InitialBalance)
-                .GreaterThan(0).WithMessage("The initial balance must be greater tan 0.");
+                .GreaterThanOrEqualTo(0).WithMessage("The initial balance cannot be negative.");
         }
     }
 }
